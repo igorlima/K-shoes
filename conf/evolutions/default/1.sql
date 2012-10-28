@@ -1,25 +1,57 @@
-# --- Created by Ebean DDL
-# To stop Ebean DDL generation, remove this comment and start using Evolutions
-
+# Users schema
+ 
 # --- !Ups
+ 
+CREATE TABLE Produto (
+    id          bigint(20) NOT NULL AUTO_INCREMENT,
+    nome        varchar(255) NOT NULL,
+    marca       varchar(255) NOT NULL,
+    precoCusto  decimal(10,2) NOT NULL,
+    precoVenda  decimal(10,2) NOT NULL,
+    quantidade  int NOT NULL,
+    modelo      varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+);
 
-create table cliente (
-  id                        bigint auto_increment not null,
-  nome                      varchar(255),
-  cpf                       bigint,
-  cidade                    varchar(255),
-  endereco                  varchar(255),
-  constraint pk_cliente primary key (id))
-;
+CREATE TABLE Fornecedor (
+    id          bigint(20) NOT NULL AUTO_INCREMENT,
+    nome        varchar(255) NOT NULL,
+    cnpj        int(255) NOT NULL,
+    cidade      varchar(255) NOT NULL,
+    endereco    varchar(255) NOT NULL,
+    telefone    varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+);
 
+CREATE TABLE Cliente (
+    id          bigint(20) NOT NULL AUTO_INCREMENT,
+    nome        varchar(255) NOT NULL,
+    cpf         int(11) NOT NULL,
+    cidade      varchar(255) NOT NULL,
+    endereco    varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+);
 
+CREATE TABLE Venda (
+    id             bigint(20) NOT NULL AUTO_INCREMENT,
+    dataVenda      DATE NOT NULL,
+    valor          decimal(10,2) NOT NULL,
+    formaPagamento varchar(255) NOT NULL,
+    idCliente      int,
+    PRIMARY KEY (id)
+);
 
-
+CREATE TABLE ProdutosVendas (
+    id             bigint(20) NOT NULL AUTO_INCREMENT,
+    idVenda        int,
+    idProduto      int,
+    PRIMARY KEY (id)
+);
+ 
 # --- !Downs
-
-SET FOREIGN_KEY_CHECKS=0;
-
-drop table cliente;
-
-SET FOREIGN_KEY_CHECKS=1;
-
+ 
+DROP TABLE Produto;
+DROP TABLE Fornecedor;
+DROP TABLE Cliente;
+DROP TABLE Venda;
+DROP TABLE ProdutosVendas;
