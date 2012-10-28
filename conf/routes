@@ -11,6 +11,7 @@ GET     /produtos                   controllers.Application.produtos()
 GET     /fornecedores               controllers.Application.fornecedores()
 
 GET     /clientes                   controllers.Application.clientes()
+GET     /clientes/:id               controllers.Application.cliente(id: Long)
 POST    /clientes                   controllers.Application.novoCliente()
 
 

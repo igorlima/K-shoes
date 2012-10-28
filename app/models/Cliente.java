@@ -32,6 +32,10 @@ public class Cliente extends Model {
 		return find.all();
 	}
 	
+	public static Cliente find(Long id) {
+	  return find.byId(id);
+	}
+	
 	public static Cliente create(Cliente cliente) {
 	  cliente.save();
 	  return cliente;

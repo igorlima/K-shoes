@@ -30,6 +30,11 @@ public class Application extends Controller {
     return ok(Deserializer.GSON.toJson(returnTO));
   }
   
+  public static Result cliente(Long id) {
+    ReturnTO returnTO = new ObjectAndMessageReturnTO<Cliente>(Cliente.find(id));
+    return ok(Deserializer.GSON.toJson(returnTO));
+  }
+  
   public static Result novoCliente() {
     RequestBody body = request().body();
     Cliente.create( Deserializer.GSON.fromJson(body.asJson().toString(), Cliente.class) );
