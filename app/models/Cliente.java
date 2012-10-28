@@ -1,6 +1,5 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -30,7 +29,7 @@ public class Cliente extends Model {
   public static Finder<Long, Cliente> find = new Finder<Long, Cliente>(Long.class, Cliente.class);
 	
 	public static List<Cliente> all() {
-		return new ArrayList<Cliente>();
+		return find.all();
 	}
 	
 	public static Cliente create(Cliente cliente) {
