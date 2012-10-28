@@ -3,6 +3,7 @@
 # ~~~~
 
 # Home page
+GET     /                           controllers.Assets.at(path="/public", file="/html/index.html")
 GET     /public/*file               controllers.Assets.at(path="/public", file)
 GET     /help                       controllers.Application.index()
 
