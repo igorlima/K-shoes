@@ -1,13 +1,15 @@
 package models.to;
 
+import com.google.gson.annotations.Expose;
+
 public class ObjectAndMessageReturnTO<T> extends ReturnTO {
 
   private static final long serialVersionUID = 1L;
 
   public static final String DEFAULT_SUCCESS_MESSAGE = "A operação foi executada com sucesso.";
 
-  private T returnObject;
-  private String message;
+  @Expose private T returnObject;
+  @Expose private String message;
 
   /**
    * Construtor que inicializa o objeto de retorno com o objeto a ser

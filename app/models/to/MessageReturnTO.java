@@ -3,6 +3,8 @@ package models.to;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+
 public class MessageReturnTO extends ReturnTO {
 
   private static final long serialVersionUID = 1L;
@@ -10,8 +12,8 @@ public class MessageReturnTO extends ReturnTO {
   public static final String DEFAULT_ERROR_MESSAGE = "A operação não pode ser executada, verifique sua conexão e tente novamente.";
   public static final String DEFAULT_SUCCESS_MESSAGE = "A operação foi executada com sucesso.";
 
-  private String message;
-  protected List<String> additionalInformation;
+  @Expose private String message;
+  @Expose protected List<String> additionalInformation;
 
   /**
    * Construtor padrão. Inicializa o objeto com status =

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 
 import play.db.ebean.Model;
 
+import com.google.gson.annotations.Expose;
+
 @Entity
 public class Cliente extends Model {
 
@@ -16,16 +18,14 @@ public class Cliente extends Model {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Expose
   public Long id;
 	
-	public String nome;
-	
-	public Long cpf;
-	
-	public String cidade;
-	
-	public String endereco;
-	
+  @Expose public String nome;
+  @Expose public Long cpf;
+  @Expose public String cidade;
+  @Expose public String endereco;
+  
   public static Finder<Long, Cliente> find = new Finder<Long, Cliente>(Long.class, Cliente.class);
 	
 	public static List<Cliente> all() {

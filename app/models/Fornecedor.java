@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.google.gson.annotations.Expose;
+
 import play.db.ebean.Model;
 
 @Entity
@@ -15,17 +17,14 @@ public class Fornecedor extends Model {
 
   @Id
 	@GeneratedValue
+	@Expose
 	public Integer id;
 	
-	public String nome;
-	
-	public Integer cnpj;
-	
-	public String cidade;
-	
-	public String endereco;
-	
-	public String telefone;
+  @Expose public String nome;
+  @Expose public Integer cnpj;
+  @Expose public String cidade;
+  @Expose public String endereco;
+  @Expose public String telefone;
 	
 	public static Finder<Long, Fornecedor> find = new Finder<Long, Fornecedor>(Long.class, Fornecedor.class);
   

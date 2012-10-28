@@ -25,25 +25,10 @@ public class Application extends Controller {
 class Deserializer {
   protected static Gson GSON = new GsonBuilder()
   .excludeFieldsWithModifiers(Modifier.STATIC)
+  .excludeFieldsWithoutExposeAnnotation()
   .setExclusionStrategies(new ExclusionStrategy() {
     @Override public boolean shouldSkipField(FieldAttributes arg0) {
       Set<String> ignores = new HashSet<String>();
-      ignores.add("beanCollectionTouched");
-      ignores.add("ebeanServerName");
-      ignores.add("fetchFuture");
-      ignores.add("filterMany");
-      ignores.add("finishedFetch");
-      ignores.add("hasMoreRows");
-      ignores.add("loader");
-      ignores.add("loaderIndex");
-      ignores.add("modifyAddListening");
-      ignores.add("modifyAddHolder");
-      ignores.add("modifyListening");
-      ignores.add("modifyListenMode");
-      ignores.add("modifyRemoveListening");
-      ignores.add("ownerBean");
-      ignores.add("propertyName");
-      ignores.add("state");
       ignores.add("_ebean_identity");
       ignores.add("_ebean_intercept");
       ignores.add("_idGetSet");

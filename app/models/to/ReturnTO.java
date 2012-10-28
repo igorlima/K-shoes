@@ -2,6 +2,8 @@ package models.to;
 
 import java.io.Serializable;
 
+import com.google.gson.annotations.Expose;
+
 public abstract class ReturnTO implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -29,7 +31,7 @@ public abstract class ReturnTO implements Serializable {
 
   private static final Status DEFAULT_STATUS = Status.SUCCESS;
 
-  private Status status;
+  @Expose private Status status;
 
   /**
    * Construtor padrão. Inicializa o objeto com o status padrão =
