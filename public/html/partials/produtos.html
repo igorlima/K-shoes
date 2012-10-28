@@ -1,0 +1,105 @@
+
+<legend>Produtos</legend>
+  
+<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label" for="inputFornecedor">Fornecedor</label>
+    <div class="controls">
+      <select ng-model="produto.fornecedor.id" ng-options="fornecedor.id as fornecedor.nome for fornecedor in fornecedores"></select>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputPrecoCusto">Preço de Custo</label>
+    <div class="controls">
+      <input type="text" placeholder="Preço de Custo" ng-model="produto.precoCusto">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputPrecoVenda">Preço de Venda</label>
+    <div class="controls">
+      <input type="text" placeholder="Preço de Venda" ng-model="produto.precoVenda">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputNome">Nome</label>
+    <div class="controls">
+      <input type="text" placeholder="Nome" ng-model="produto.nome">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputMarca">Marca</label>
+    <div class="controls">
+      <input type="text" placeholder="Marca" ng-model="produto.marca">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputQuantidade">Quantidade</label>
+    <div class="controls">
+      <input type="text" placeholder="Quantidade" ng-model="produto.quantidade">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputModelo">Modelo</label>
+    <div class="controls">
+      <input type="text" placeholder="Modelo" ng-model="produto.modelo">
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <a class="btn btn-inverse" ng-hide="produto.id" ng-click="salvar()"> <i class="icon-plus icon-white"></i> Salvar</a>
+      <a class="btn btn-inverse" ng-show="produto.id" ng-click="editar_produto_selecionado()"> <i class="icon-plus icon-white"></i> Editar</a>
+      <a class="btn" ng-click="limpar()"> <i class="icon-ban-circle"></i> Limpar</a>
+    </div>
+  </div>
+</form>
+
+<legend>Lista dos Produtos</legend>
+<div class="alert" ng-hide="has_produtos">
+  <strong>Atenção!</strong> Não foi encontrado nenhum produto salvo.
+</div>
+
+<table class="table table-hover" ng-show="has_produtos">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Preço Venda</th>
+      <th>Quantidade</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="produto in produtos">
+      <td>{{produto.id}}</td>
+      <td>{{produto.nome}}</td>
+      <td>{{produto.precoVenda}}</td>
+      <td>{{produto.quantidade}}</td>
+      <td>
+        <a class="btn btn-mini btn-primary" ng-click="editar(produto)"   rel="tooltip" title="editar"><i class="icon-edit icon-white"></i></a>
+        <a href="#visualizarProduto" class="btn btn-mini btn-info"  data-toggle="modal" rel="tooltip" title="visualizar" ng-click="selecionar(produto)"><i class="icon-search icon-white"></i></a>
+        <a class="btn btn-mini btn-danger"  ng-click="excluir(produto)"  rel="tooltip" title="excluir"><i class="icon-trash icon-white"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="visualizarProduto" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+    <h3>Visualização</h3>
+  </div>
+  <div class="modal-body">
+    <address>
+      <strong>{{produto_selecionado.nome}}</strong><br>
+      <strong>Fornecedor: </strong> {{produto_selecionado.fornecedor.nome}}<br>
+      <abbr title="Preço de Custo">Preço de Custo:</abbr> {{produto_selecionado.precoCusto}} <br>
+      <abbr title="Preço de Venda">Preço de Venda:</abbr> {{produto_selecionado.precoVenda}} <br>
+      <abbr title="Marca">Marca:</abbr> {{produto_selecionado.marca}} <br>
+      <abbr title="Quantiade">Quantidade:</abbr> {{produto_selecionado.quantidade}} <br>
+      <abbr title="Modelo">Modelo:</abbr> {{produto_selecionado.modelo}} <br>
+    </address>
+  </div>
+  <div class="modal-footer">
+    <a class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>

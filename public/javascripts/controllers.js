@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module( 'controllers', ['clienteModel', 'fornecedorModel', 'emprestimoModel', 'itemEmprestimoModel'] )
+angular.module( 'controllers', ['clienteModel', 'fornecedorModel', 'produtoModel'] )
 
 .controller( 'ClienteCtrl', ['$scope', 'Cliente', 
 function(ng, Cliente) {
@@ -165,75 +165,39 @@ function(ng, Fornecedor) {
 }])
 
 
-.controller( 'EmprestimoCtrl', ['$scope','Emprestimo','ItemEmprestimo','Cliente','Fornecedor', 
-function(ng, Emprestimo, ItemEmprestimo, Cliente, Fornecedor) {
-  
-  var create_a_new_emprestimo = function() {
-    ng.fornecedor_selecionado = {};
-    ng.dataParaDevolucao = null;
-    return {
-      cliente: {},
-      itens: []
-    };
-  };
-  
-  ng.emprestimo = create_a_new_emprestimo();
-  ng.emprestimos = [];
-  ng.clientes = [];
-  ng.livros = [];
-  
-  Fornecedor.all( function(data){
-    ng.livros = data.returnObject;
-  });
-  
-  Cliente.all(function(data){
-    ng.clientes = data.returnObject;
-  });
-  
-  var listar_todos_emprestimos = function() {
-    Emprestimo.all(function(data){
-      ng.emprestimos = data.returnObject;
-      ng.has_emprestimos = ng.emprestimos.length > 0 ? true : false;
-    });
-  };
-  listar_todos_emprestimos();
+.controller( 'ProdutoCtrl', ['$scope','Produto','Fornecedor', 
+function(ng, Produto, Fornecedor) {
   
   ng.limpar = function() {
-    ng.emprestimo = create_a_new_emprestimo();
+    ng.produto = {};
+    ng.produto.fornecedor = {};
+    return ng.produto;
   };
   
-  ng.adicionarItemEmprestimo = function() {
-    ng.emprestimo.itens.push({
-      dataParaDevolucao: ng.dataParaDevolucao,
-      fornecedor: ng.fornecedor_selecionado
+  ng.produto = ng.limpar();
+  ng.produtos = [];
+  ng.fornecedores = [];
+  
+  Fornecedor.all( function(data){
+    ng.fornecedores = data.returnObject;
+  });
+  
+  var listar_todos_produtos = function() {
+    Produto.all(function(data){
+      ng.produtos = data.returnObject;
+      ng.has_produtos = ng.produtos.length > 0 ? true : false;
     });
-    ng.fornecedor_selecionado = {};
-    ng.dataParaDevolucao = null;
   };
+  listar_todos_produtos();
   
   ng.salvar = function() {
-    Emprestimo.save( {tipo:ng.emprestimo.tipo}, ng.emprestimo, 
+    Produto.save( {}, ng.produto, 
       function(data){
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.emprestimo = create_a_new_emprestimo();
-          listar_todos_emprestimos();
-        }
-      },
-      function(data){
-        Message.set(true, data);
-    });
-  };
-  
-  ng.editar_emprestimo_selecionado = function() {
-    Emprestimo.update( {tipo:ng.emprestimo.tipo}, ng.emprestimo, 
-      function(data){
-        if (data.status=='ERROR') Message.set(true, data.message);
-        else{
-          Message.set(false, data.message);
-          ng.emprestimo = create_a_new_emprestimo();
-          listar_todos_emprestimos();
+          ng.limpar();
+          listar_todos_produtos();
         }
       },
       function(data){
@@ -241,74 +205,51 @@ function(ng, Emprestimo, ItemEmprestimo, Cliente, Fornecedor) {
     });
   };
   
-  ng.editar = function(emprestimo) {
-    ng.emprestimo.id             = emprestimo.id;
-    ng.emprestimo.itens          = emprestimo.itens;
-    ng.emprestimo.cliente.id     = emprestimo.cliente.id;
-    ng.emprestimo.dataEmprestimo = emprestimo.dataEmprestimo;
-    ng.fornecedor_selecionado    = {};
+  ng.editar_produto_selecionado = function() {
+    Produto.update( {}, ng.produto, 
+      function(data){
+        if (data.status=='ERROR') Message.set(true, data.message);
+        else{
+          Message.set(false, data.message);
+          ng.limpar();
+          listar_todos_produtos();
+        }
+      },
+      function(data){
+        Message.set(true, data);
+    });
   };
   
-  ng.selecionar = function(emprestimo) {
-    ng.emprestimo_selecionado = emprestimo;
-    ng.emprestimo = create_a_new_emprestimo();
+  ng.editar = function(produto) {
+    ng.produto.id            = produto.id;
+    ng.produto.precoCusto    = produto.precoCusto;
+    ng.produto.precoVenda    = produto.precoVenda;
+    ng.produto.nome          = produto.nome;
+    ng.produto.marca         = produto.marca;
+    ng.produto.quantidade    = produto.quantidade;
+    ng.produto.modelo        = produto.modelo;
+    ng.produto.fornecedor    = produto.fornecedor;
   };
   
-  ng.excluir = function(emprestimo) {
-    Emprestimo.remove( {id:emprestimo.id},
+  ng.selecionar = function(produto) {
+    ng.produto_selecionado = produto;
+    ng.limpar();
+  };
+  
+  ng.excluir = function(produto) {
+    Produto.remove( {id:produto.id},
       function(data) {
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.emprestimo = create_a_new_emprestimo();
-          listar_todos_emprestimos();
+          ng.limpar();
+          listar_todos_produtos();
         }
       },
       function(data) {
         Message.set(true, data);
-        ng.emprestimo = create_a_new_emprestimo();
+        ng.limpar();
     });
   };
   
-  ng.devolver_emprestimo_selecionado = function() {
-    ItemEmprestimo.devolve( {act:'devolucao'}, ng.emprestimo_selecionado, 
-      function(data) {
-        if (data.status=='ERROR') Message.set(true, data.message);
-        else{
-          Message.set(false, data.message);
-          listar_todos_emprestimos();
-          $('#devolverEmprestimo').find('a[data-dismiss=modal]').click();
-        }
-      },
-      function(data) {
-        Message.set(true, data);
-        $('#devolverEmprestimo').find('a[data-dismiss=modal]').click();
-    });
-  };
-  
-  ng.renovar_emprestimo_selecionado = function() {
-    ItemEmprestimo.renew( {act:'renovacao'}, ng.emprestimo_selecionado, 
-      function(data) {
-        if (data.status=='ERROR') Message.set(true, data.message);
-        else{
-          Message.set(false, data.message);
-          listar_todos_emprestimos();
-          $('#renovarEmprestimo').find('a[data-dismiss=modal]').click();
-        }
-      },
-      function(data) {
-        Message.set(true, data);
-        $('#renovarEmprestimo').find('a[data-dismiss=modal]').click();
-    });
-  };
-  
-  ng.qte_devolvidos = function(itens) {
-    var qte_devolvidos = 0;
-    angular.forEach( itens, function(item){
-      if (item.dataDaDevolucao!=null) qte_devolvidos++;
-    });
-    return qte_devolvidos;
-  };
-  
-
 }]);

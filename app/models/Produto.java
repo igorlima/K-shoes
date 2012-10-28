@@ -38,17 +38,21 @@ public class Produto extends Model {
   
   @ManyToOne
   @JoinColumn( name = "idFornecedor", referencedColumnName = "ID" )
-  @Expose(serialize=false)
+  @Expose
   public Fornecedor fornecedor;
   
   public static Finder<Long, Produto> find = new Finder<Long, Produto>(Long.class, Produto.class);
   
   public static List<Produto> all() {
-    return find.all();
+    List<Produto> produtos = find.all();
+    for (Produto produto:produtos) produto.fornecedor.refresh();
+    return produtos;
   }
   
   public static Produto find(Long id) {
-    return find.byId(id);
+    Produto produto = find.byId(id);
+    produto.fornecedor.refresh();
+    return produto;
   }
   
   public static Produto create(Produto produto) {
