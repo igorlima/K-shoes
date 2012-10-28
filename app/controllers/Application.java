@@ -2,15 +2,9 @@ package controllers;
 
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import models.Cliente;
-import models.to.MessageReturnTO;
-import models.to.ObjectAndMessageReturnTO;
-import models.to.ReturnTO;
 import play.mvc.Controller;
-import play.mvc.Http.RequestBody;
 import play.mvc.Result;
 import views.html.index;
 
@@ -23,35 +17,6 @@ public class Application extends Controller {
   
   public static Result index() {
     return ok(index.render("Your new application is ready."));
-  }
-  
-  public static Result clientes() {
-    ReturnTO returnTO = new ObjectAndMessageReturnTO<List<Cliente>>(Cliente.all());
-    return ok(Deserializer.GSON.toJson(returnTO));
-  }
-  
-  public static Result cliente(Long id) {
-    ReturnTO returnTO = new ObjectAndMessageReturnTO<Cliente>(Cliente.find(id));
-    return ok(Deserializer.GSON.toJson(returnTO));
-  }
-  
-  public static Result novoCliente() {
-    RequestBody body = request().body();
-    Cliente.create( Deserializer.GSON.fromJson(body.asJson().toString(), Cliente.class) );
-    ReturnTO returnTO = new MessageReturnTO();
-    return ok(Deserializer.GSON.toJson(returnTO));
-  }
-  
-  public static Result produtos() {
-    return TODO;
-  }
-  
-  public static Result fornecedores() {
-    return TODO;
-  }
-  
-  public static Result vendas() {
-    return TODO;
   }
   
 }

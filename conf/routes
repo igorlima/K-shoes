@@ -7,15 +7,15 @@ GET     /                           controllers.Assets.at(path="/public", file="
 GET     /public/*file               controllers.Assets.at(path="/public", file)
 GET     /help                       controllers.Application.index()
 
-GET     /produtos                   controllers.Application.produtos()
-GET     /fornecedores               controllers.Application.fornecedores()
+GET     /produtos                   controllers.ProdutoController.all()
+GET     /fornecedores               controllers.FornecedorController.all()
 
-GET     /clientes                   controllers.Application.clientes()
-GET     /clientes/:id               controllers.Application.cliente(id: Long)
-POST    /clientes                   controllers.Application.novoCliente()
+GET     /clientes                   controllers.ClienteController.all()
+GET     /clientes/:id               controllers.ClienteController.findById(id: Long)
+POST    /clientes                   controllers.ClienteController.novoCliente()
 
 
-GET     /vendas                     controllers.Application.vendas()
+GET     /vendas                     controllers.VendaController.all()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
