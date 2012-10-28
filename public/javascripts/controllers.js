@@ -2,35 +2,35 @@
 
 /* Controllers */
 
-angular.module( 'controllers', ['usuarioModel', 'publicacaoModel', 'emprestimoModel', 'itemEmprestimoModel'] )
+angular.module( 'controllers', ['clienteModel', 'publicacaoModel', 'emprestimoModel', 'itemEmprestimoModel'] )
 
-.controller( 'UsuarioCtrl', ['$scope', 'Usuario', 
-function(ng, Usuario) {
+.controller( 'ClienteCtrl', ['$scope', 'Cliente', 
+function(ng, Cliente) {
 
-  ng.usuario = {};
+  ng.cliente = {};
   
-  ng.usuarios = []; 
+  ng.clientes = []; 
   
-  var listar_todos_usuarios = function() {
-    Usuario.all(function(data){
-      ng.usuarios = data.returnObject;
-      ng.has_usuarios = ng.usuarios.length > 0 ? true : false;
+  var listar_todos_clientes = function() {
+    Cliente.all(function(data){
+      ng.clientes = data.returnObject;
+      ng.has_clientes = ng.clientes.length > 0 ? true : false;
     });
   };
-  listar_todos_usuarios();
+  listar_todos_clientes();
   
   ng.limpar = function() {
-    ng.usuario = {};
+    ng.cliente = {};
   };
   
   ng.salvar = function() {
-    Usuario.save( {}, ng.usuario, 
+    Cliente.save( {}, ng.cliente, 
       function(data){
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.usuario = {};
-          listar_todos_usuarios();
+          ng.cliente = {};
+          listar_todos_clientes();
         }
       },
       function(data){
@@ -38,14 +38,14 @@ function(ng, Usuario) {
     });
   };
   
-  ng.editar_usuario_selecionado = function() {
-    Usuario.update( {}, ng.usuario, 
+  ng.editar_cliente_selecionado = function() {
+    Cliente.update( {}, ng.cliente, 
       function(data){
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.usuario = {};
-          listar_todos_usuarios();
+          ng.cliente = {};
+          listar_todos_clientes();
         }
       },
       function(data){
@@ -53,32 +53,32 @@ function(ng, Usuario) {
     });
   };
   
-  ng.editar = function(usuario) {
-    ng.usuario.id              = usuario.id;
-    ng.usuario.nome            = usuario.nome;
-    ng.usuario.endereco        = usuario.endereco;
-    ng.usuario.cpf             = usuario.cpf;
-    ng.usuario.telefone        = usuario.telefone;
+  ng.editar = function(cliente) {
+    ng.cliente.id              = cliente.id;
+    ng.cliente.nome            = cliente.nome;
+    ng.cliente.endereco        = cliente.endereco;
+    ng.cliente.cpf             = cliente.cpf;
+    ng.cliente.telefone        = cliente.telefone;
   };
   
-  ng.visualizar = function(usuario) {
-    ng.usuario_para_visualizacao = usuario;
-    ng.usuario = {};
+  ng.visualizar = function(cliente) {
+    ng.cliente_para_visualizacao = cliente;
+    ng.cliente = {};
   };
   
-  ng.excluir = function(usuario) {
-    Usuario.remove( {id:usuario.id},
+  ng.excluir = function(cliente) {
+    Cliente.remove( {id:cliente.id},
       function(data) {
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.usuario = {};
-          listar_todos_usuarios();
+          ng.cliente = {};
+          listar_todos_clientes();
         }
       },
       function(data) {
         Message.set(true, data);
-        ng.usuario = {};
+        ng.cliente = {};
     });
   };
 
@@ -169,29 +169,29 @@ function(ng, Publicacao) {
 }])
 
 
-.controller( 'EmprestimoCtrl', ['$scope','Emprestimo','ItemEmprestimo','Usuario','Publicacao', 
-function(ng, Emprestimo, ItemEmprestimo, Usuario, Publicacao) {
+.controller( 'EmprestimoCtrl', ['$scope','Emprestimo','ItemEmprestimo','Cliente','Publicacao', 
+function(ng, Emprestimo, ItemEmprestimo, Cliente, Publicacao) {
   
   var create_a_new_emprestimo = function() {
     ng.publicacao_selecionada = {};
     ng.dataParaDevolucao = null;
     return {
-      usuario: {},
+      cliente: {},
       itens: []
     };
   };
   
   ng.emprestimo = create_a_new_emprestimo();
   ng.emprestimos = [];
-  ng.usuarios = [];
+  ng.clientes = [];
   ng.livros = [];
   
   Publicacao.all( {pathTipo: 'tipo', tipo:'LIVRO'}, function(data){
     ng.livros = data.returnObject;
   });
   
-  Usuario.all(function(data){
-    ng.usuarios = data.returnObject;
+  Cliente.all(function(data){
+    ng.clientes = data.returnObject;
   });
   
   var listar_todos_emprestimos = function() {
@@ -248,7 +248,7 @@ function(ng, Emprestimo, ItemEmprestimo, Usuario, Publicacao) {
   ng.editar = function(emprestimo) {
     ng.emprestimo.id             = emprestimo.id;
     ng.emprestimo.itens          = emprestimo.itens;
-    ng.emprestimo.usuario.id     = emprestimo.usuario.id;
+    ng.emprestimo.cliente.id     = emprestimo.cliente.id;
     ng.emprestimo.dataEmprestimo = emprestimo.dataEmprestimo;
     ng.publicacao_selecionada    = {};
   };
