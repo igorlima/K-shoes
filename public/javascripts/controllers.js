@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module( 'controllers', ['clienteModel', 'publicacaoModel', 'emprestimoModel', 'itemEmprestimoModel'] )
+angular.module( 'controllers', ['clienteModel', 'fornecedorModel', 'emprestimoModel', 'itemEmprestimoModel'] )
 
 .controller( 'ClienteCtrl', ['$scope', 'Cliente', 
 function(ng, Cliente) {
@@ -29,7 +29,7 @@ function(ng, Cliente) {
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.cliente = {};
+          ng.limpar();
           listar_todos_clientes();
         }
       },
@@ -44,7 +44,7 @@ function(ng, Cliente) {
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.cliente = {};
+          ng.limpar();
           listar_todos_clientes();
         }
       },
@@ -63,7 +63,7 @@ function(ng, Cliente) {
   
   ng.visualizar = function(cliente) {
     ng.cliente_para_visualizacao = cliente;
-    ng.cliente = {};
+    ng.limpar();
   };
   
   ng.excluir = function(cliente) {
@@ -72,45 +72,44 @@ function(ng, Cliente) {
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.cliente = {};
+          ng.limpar();
           listar_todos_clientes();
         }
       },
       function(data) {
         Message.set(true, data);
-        ng.cliente = {};
+        ng.limpar();
     });
   };
 
 }])
 
-.controller( 'PublicacaoCtrl', ['$scope','Publicacao', 
-function(ng, Publicacao) {
+.controller( 'FornecedorCtrl', ['$scope','Fornecedor', 
+function(ng, Fornecedor) {
   
-  ng.publicacao = {tipo:'LIVRO'};
+  ng.fornecedor = {};
+  ng.fornecedores = []; 
   
-  ng.publicacoes = []; 
-  
-  var listar_todas_publicacoes = function() {
-    Publicacao.all(function(data){
-      ng.publicacoes = data.returnObject;
-      ng.has_publicacoes = ng.publicacoes.length > 0 ? true : false;
+  var listar_todos_fornecedores = function() {
+    Fornecedor.all(function(data){
+      ng.fornecedores = data.returnObject;
+      ng.has_fornecedores = ng.fornecedores.length > 0 ? true : false;
     });
   };
-  listar_todas_publicacoes();
+  listar_todos_fornecedores();
   
   ng.limpar = function() {
-    ng.publicacao = {tipo:'LIVRO'};
+    ng.fornecedor = {};
   };
   
   ng.salvar = function() {
-    Publicacao.save( {tipo:ng.publicacao.tipo}, ng.publicacao, 
+    Fornecedor.save( {}, ng.fornecedor, 
       function(data){
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.publicacao = {tipo:'LIVRO'};
-          listar_todas_publicacoes();
+          ng.limpar();
+          listar_todos_fornecedores();
         }
       },
       function(data){
@@ -118,14 +117,14 @@ function(ng, Publicacao) {
     });
   };
   
-  ng.editar_publicacao_selecionado = function() {
-    Publicacao.update( {tipo:ng.publicacao.tipo}, ng.publicacao, 
+  ng.editar_fornecedor_selecionado = function() {
+    Fornecedor.update( {}, ng.fornecedor, 
       function(data){
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.publicacao = {tipo:'LIVRO'};
-          listar_todas_publicacoes();
+          ng.limpar();
+          listar_todos_fornecedores();
         }
       },
       function(data){
@@ -133,47 +132,44 @@ function(ng, Publicacao) {
     });
   };
   
-  ng.editar = function(publicacao) {
-    ng.publicacao.id            = publicacao.id;
-    ng.publicacao.titulo        = publicacao.titulo;
-    ng.publicacao.editora       = publicacao.editora;
-    ng.publicacao.ano           = publicacao.ano;
-    ng.publicacao.tipo          = publicacao.tipo;
-    ng.publicacao.autores       = publicacao.autores;
-    ng.publicacao.qtdExemplares = publicacao.qtdExemplares;
-    ng.publicacao.numEdicao     = publicacao.numEdicao;
-    ng.publicacao.mes           = publicacao.mes;
+  ng.editar = function(fornecedor) {
+    ng.fornecedor.id         = fornecedor.id;
+    ng.fornecedor.nome       = fornecedor.nome;
+    ng.fornecedor.cnpj       = fornecedor.cnpj;
+    ng.fornecedor.cidade     = fornecedor.cidade;
+    ng.fornecedor.endereco   = fornecedor.endereco;
+    ng.fornecedor.telefone   = fornecedor.telefone;
   };
   
-  ng.visualizar = function(publicacao) {
-    ng.publicacao_para_visualizacao = publicacao;
-    ng.publicacao = {tipo:'LIVRO'};
+  ng.visualizar = function(fornecedor) {
+    ng.fornecedor_para_visualizacao = fornecedor;
+    ng.limpar();
   };
   
-  ng.excluir = function(publicacao) {
-    Publicacao.remove( {id:publicacao.id, tipo:publicacao.tipo},
+  ng.excluir = function(fornecedor) {
+    Fornecedor.remove( {id:fornecedor.id},
       function(data) {
         if (data.status=='ERROR') Message.set(true, data.message);
         else{
           Message.set(false, data.message);
-          ng.publicacao = {tipo:'LIVRO'};
-          listar_todas_publicacoes();
+          ng.limpar();
+          listar_todos_fornecedores();
         }
       },
       function(data) {
         Message.set(true, data);
-        ng.publicacao = {tipo:'LIVRO'};
+        ng.limpar();
     });
   };
 
 }])
 
 
-.controller( 'EmprestimoCtrl', ['$scope','Emprestimo','ItemEmprestimo','Cliente','Publicacao', 
-function(ng, Emprestimo, ItemEmprestimo, Cliente, Publicacao) {
+.controller( 'EmprestimoCtrl', ['$scope','Emprestimo','ItemEmprestimo','Cliente','Fornecedor', 
+function(ng, Emprestimo, ItemEmprestimo, Cliente, Fornecedor) {
   
   var create_a_new_emprestimo = function() {
-    ng.publicacao_selecionada = {};
+    ng.fornecedor_selecionado = {};
     ng.dataParaDevolucao = null;
     return {
       cliente: {},
@@ -186,7 +182,7 @@ function(ng, Emprestimo, ItemEmprestimo, Cliente, Publicacao) {
   ng.clientes = [];
   ng.livros = [];
   
-  Publicacao.all( {pathTipo: 'tipo', tipo:'LIVRO'}, function(data){
+  Fornecedor.all( function(data){
     ng.livros = data.returnObject;
   });
   
@@ -209,9 +205,9 @@ function(ng, Emprestimo, ItemEmprestimo, Cliente, Publicacao) {
   ng.adicionarItemEmprestimo = function() {
     ng.emprestimo.itens.push({
       dataParaDevolucao: ng.dataParaDevolucao,
-      publicacao: ng.publicacao_selecionada
+      fornecedor: ng.fornecedor_selecionado
     });
-    ng.publicacao_selecionada = {};
+    ng.fornecedor_selecionado = {};
     ng.dataParaDevolucao = null;
   };
   
@@ -250,7 +246,7 @@ function(ng, Emprestimo, ItemEmprestimo, Cliente, Publicacao) {
     ng.emprestimo.itens          = emprestimo.itens;
     ng.emprestimo.cliente.id     = emprestimo.cliente.id;
     ng.emprestimo.dataEmprestimo = emprestimo.dataEmprestimo;
-    ng.publicacao_selecionada    = {};
+    ng.fornecedor_selecionado    = {};
   };
   
   ng.selecionar = function(emprestimo) {

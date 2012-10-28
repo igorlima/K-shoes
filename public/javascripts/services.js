@@ -13,9 +13,9 @@ factory('Cliente', ['$resource', function($resource){
 }]);
 
 
-angular.module('publicacaoModel', ['ngResource']).
-factory('Publicacao', ['$resource', function($resource){
-  return $resource('publicacao/:id/:pathTipo/:tipo', {}, {
+angular.module('fornecedorModel', ['ngResource']).
+factory('Fornecedor', ['$resource', function($resource){
+  return $resource('fornecedores/:id', {}, {
     all:    {method:'GET'   , params:{}},
     save:   {method:'POST'  , params:{}},
     update: {method:'PUT'   , params:{}},

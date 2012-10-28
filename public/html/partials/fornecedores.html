@@ -1,0 +1,90 @@
+
+<legend>Fornecedores</legend>
+  
+<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label" for="inputNome">Nome</label>
+    <div class="controls">
+      <input type="text" placeholder="Nome" ng-model="fornecedor.nome">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputCnpj">CNPJ</label>
+    <div class="controls">
+      <input type="text" placeholder="CNPJ" ng-model="fornecedor.cnpj">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputCidade">Cidade</label>
+    <div class="controls">
+      <input type="text" placeholder="Cidade" ng-model="fornecedor.cidade">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputEndereco">Endereço</label>
+    <div class="controls">
+      <input type="text" placeholder="Endereço" ng-model="fornecedor.endereco">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputTelefone">Telefone</label>
+    <div class="controls">
+      <input type="text" placeholder="Telefone" ng-model="fornecedor.telefone">
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <div class="controls">
+      <a class="btn btn-inverse" ng-hide="fornecedor.id" ng-click="salvar()"> <i class="icon-plus icon-white"></i> Salvar</a>
+      <a class="btn btn-inverse" ng-show="fornecedor.id" ng-click="editar_fornecedor_selecionado()"> <i class="icon-plus icon-white"></i> Editar</a>
+      <a class="btn" ng-click="limpar()"> <i class="icon-ban-circle"></i> Limpar</a>
+    </div>
+  </div>
+</form>
+
+<legend>Lista de fornecedores</legend>
+<div class="alert" ng-hide="has_fornecedores">
+  <strong>Atenção!</strong> Não foi encontrado nenhum fornecedor salvo.
+</div>
+
+<table class="table table-hover" ng-show="has_fornecedores">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Nome</th>
+      <th>Endereço</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="fornecedor in fornecedores">
+      <td>{{fornecedor.id}}</td>
+      <td>{{fornecedor.nome}}</td>
+      <td>{{fornecedor.endereco}}</td>
+      <td>
+        <a class="btn btn-mini btn-primary" ng-click="editar(fornecedor)"><i class="icon-edit icon-white"></i></a>
+        <a href="#visualizarFornecedor" class="btn btn-mini btn-info" data-toggle="modal" ng-click="visualizar(fornecedor)"><i class="icon-search icon-white"></i></a>
+        <a class="btn btn-mini btn-danger" ng-click="excluir(fornecedor)"><i class="icon-trash icon-white"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="visualizarFornecedor" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+    <h3>Visualização do fornecedor</h3>
+  </div>
+  <div class="modal-body">
+    <address>
+      <strong>{{fornecedor_para_visualizacao.nome}}</strong><br>
+      <abbr title="CNPJ">CNPJ:</abbr> {{fornecedor_para_visualizacao.cnpj}} <br>
+      <abbr title="Cidade">Cidade:</abbr> {{fornecedor_para_visualizacao.cidade}} <br>
+      <abbr title="Endereço">Endereço:</abbr> {{fornecedor_para_visualizacao.endereco}} <br>
+      <abbr title="Telefone">Telefone:</abbr> {{fornecedor_para_visualizacao.telefone}} <br>
+    </address>
+  </div>
+  <div class="modal-footer">
+    <a class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>
