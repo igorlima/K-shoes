@@ -22,6 +22,12 @@ DELETE  /fornecedores/:id           controllers.FornecedorController.delete(id: 
 POST    /fornecedores               controllers.FornecedorController.create()
 PUT     /fornecedores               controllers.FornecedorController.update()
 
+GET     /produtos                   controllers.ProdutoController.all()
+GET     /produtos/:id               controllers.ProdutoController.findById(id: Long)
+DELETE  /produtos/:id               controllers.ProdutoController.delete(id: Long)
+POST    /produtos                   controllers.ProdutoController.create()
+PUT     /produtos                   controllers.ProdutoController.update()
+
 
 GET     /vendas                     controllers.VendaController.all()
 

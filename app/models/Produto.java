@@ -2,6 +2,7 @@ package models;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,10 +23,16 @@ public class Produto extends Model {
   @Expose
   public Integer id;
   
+  @Expose
+  @Column(name="precoCusto")
+  public Double precoCusto;
+  
+  @Expose 
+  @Column(name="precoVenda")
+  public Double precoVenda;
+  
   @Expose public String nome;
   @Expose public String marca;
-  @Expose public Double precoCusto;
-  @Expose public Double precoVenda;
   @Expose public Integer quantidade;
   @Expose public String modelo;
   
