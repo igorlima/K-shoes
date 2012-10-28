@@ -1,0 +1,122 @@
+
+<legend>Publicação</legend>
+  
+<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label" for="inputTitulo">Título</label>
+    <div class="controls">
+      <input type="text" placeholder="Título" ng-model="publicacao.titulo">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputEditora">Editora</label>
+    <div class="controls">
+      <input type="text" placeholder="Editora" ng-model="publicacao.editora">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputAno">Ano</label>
+    <div class="controls">
+      <input type="text" placeholder="Ano" ng-model="publicacao.ano">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputTipo">Tipo</label>
+    <div class="controls">
+		  <label class="radio inline">
+			  <input type="radio" name="optionsRadios" value="LIVRO" ng-model="publicacao.tipo">
+			  Livro
+			</label>
+			<label class="radio inline">
+			  <input type="radio" name="optionsRadios" value="PERIODICO" ng-model="publicacao.tipo">
+			  Periódico
+			</label>
+    </div>
+  </div>
+  <div class="control-group" ng-show="publicacao.tipo=='LIVRO'">
+    <label class="control-label" for="inputAutores">Autores</label>
+    <div class="controls">
+      <input type="text" placeholder="Autores" ng-model="publicacao.autores">
+    </div>
+  </div>
+  <div class="control-group" ng-show="publicacao.tipo=='LIVRO'">
+    <label class="control-label" for="inputQuantidade">Quantidade</label>
+    <div class="controls">
+      <input type="text" placeholder="Quantidade" ng-model="publicacao.qtdExemplares">
+    </div>
+  </div>
+  <div class="control-group" ng-show="publicacao.tipo=='PERIODICO'">
+    <label class="control-label" for="inputNumEdicao">Nº edição</label>
+    <div class="controls">
+      <input type="text" placeholder="Nº Edição" ng-model="publicacao.numEdicao">
+    </div>
+  </div>
+  <div class="control-group" ng-show="publicacao.tipo=='PERIODICO'">
+    <label class="control-label" for="inputMes">Mês</label>
+    <div class="controls">
+      <input type="text" placeholder="mês" ng-model="publicacao.mes">
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <div class="controls">
+      <a class="btn btn-inverse" ng-hide="publicacao.id" ng-click="salvar()"> <i class="icon-plus icon-white"></i> Salvar</a>
+      <a class="btn btn-inverse" ng-show="publicacao.id" ng-click="editar_publicacao_selecionado()"> <i class="icon-plus icon-white"></i> Editar</a>
+      <a class="btn" ng-click="limpar()"> <i class="icon-ban-circle"></i> Limpar</a>
+    </div>
+  </div>
+</form>
+
+<legend>Lista de publicacoes</legend>
+<div class="alert" ng-hide="has_publicacoes">
+  <strong>Atenção!</strong> Não foi encontrada nenhuma publicação salva.
+</div>
+
+<table class="table table-hover" ng-show="has_publicacoes">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Título</th>
+      <th>Ano</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="publicacao in publicacoes">
+      <td>{{publicacao.id}}</td>
+      <td>{{publicacao.titulo}}</td>
+      <td>{{publicacao.ano}}</td>
+      <td>
+        <a class="btn btn-mini btn-primary" ng-click="editar(publicacao)"><i class="icon-edit icon-white"></i></a>
+        <a href="#visualizarPublicacao" class="btn btn-mini btn-info" data-toggle="modal" ng-click="visualizar(publicacao)"><i class="icon-search icon-white"></i></a>
+        <a class="btn btn-mini btn-danger" ng-click="excluir(publicacao)"><i class="icon-trash icon-white"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="visualizarPublicacao" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+    <h3>Visualização da publicação</h3>
+  </div>
+  <div class="modal-body">
+    <address>
+      <strong>{{publicacao_para_visualizacao.titulo}}</strong><br>
+      <abbr title="Editora">Editora:</abbr> {{publicacao_para_visualizacao.editora}} <br>
+      <abbr title="Ano">Ano:</abbr> {{publicacao_para_visualizacao.ano}} <br>
+      <abbr title="Tipo">Tipo:</abbr> {{publicacao_para_visualizacao.tipo}} <br>
+      <span ng-show="publicacao_para_visualizacao.tipo=='LIVRO'">
+	      <abbr title="Autores">Autores:</abbr> {{publicacao_para_visualizacao.autores}} <br>
+	      <abbr title="Quantidade">Quantidade:</abbr> {{publicacao_para_visualizacao.qtdExemplares}} <br>
+      </span>
+      <span ng-show="publicacao_para_visualizacao.tipo=='PERIODICO'">
+	      <abbr title="Nº Edição">Nº edição:</abbr> {{publicacao_para_visualizacao.numEdicao}} <br>
+	      <abbr title="Mês">Mês:</abbr> {{publicacao_para_visualizacao.mes}} <br>
+      </span>
+    </address>
+  </div>
+  <div class="modal-footer">
+    <a class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>

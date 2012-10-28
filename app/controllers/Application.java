@@ -54,10 +54,9 @@ public class Application extends Controller {
 
 class Deserializer {
   protected static Gson GSON = new GsonBuilder()
+  .excludeFieldsWithModifiers(Modifier.STATIC)
   .setExclusionStrategies(new ExclusionStrategy() {
-    
-    @Override
-    public boolean shouldSkipField(FieldAttributes arg0) {
+    @Override public boolean shouldSkipField(FieldAttributes arg0) {
       Set<String> ignores = new HashSet<String>();
       ignores.add("beanCollectionTouched");
       ignores.add("ebeanServerName");
@@ -85,10 +84,9 @@ class Deserializer {
         return false;
     }
     
-    @Override
-    public boolean shouldSkipClass(Class<?> arg0) {
+    @Override public boolean shouldSkipClass(Class<?> arg0) {
         return false;
     }
   })
-  .excludeFieldsWithModifiers(Modifier.STATIC).create();
+  .create();
 }
