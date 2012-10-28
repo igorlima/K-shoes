@@ -22,9 +22,21 @@ public class ClienteController extends Controller {
     return ok(Deserializer.GSON.toJson(returnTO));
   }
   
-  public static Result novoCliente() {
+  public static Result delete(Long id) {
+    Cliente.delete(id);
+    return ok(Deserializer.GSON.toJson(new MessageReturnTO()));
+  }
+  
+  public static Result create() {
     RequestBody body = request().body();
     Cliente.create( Deserializer.GSON.fromJson(body.asJson().toString(), Cliente.class) );
+    ReturnTO returnTO = new MessageReturnTO();
+    return ok(Deserializer.GSON.toJson(returnTO));
+  }
+  
+  public static Result update() {
+    RequestBody body = request().body();
+    Cliente.update( Deserializer.GSON.fromJson(body.asJson().toString(), Cliente.class) );
     ReturnTO returnTO = new MessageReturnTO();
     return ok(Deserializer.GSON.toJson(returnTO));
   }

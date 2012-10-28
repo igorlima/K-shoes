@@ -12,7 +12,9 @@ GET     /fornecedores               controllers.FornecedorController.all()
 
 GET     /clientes                   controllers.ClienteController.all()
 GET     /clientes/:id               controllers.ClienteController.findById(id: Long)
-POST    /clientes                   controllers.ClienteController.novoCliente()
+DELETE  /clientes/:id               controllers.ClienteController.delete(id: Long)
+POST    /clientes                   controllers.ClienteController.create()
+PUT     /clientes                   controllers.ClienteController.update()
 
 
 GET     /vendas                     controllers.VendaController.all()

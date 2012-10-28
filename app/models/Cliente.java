@@ -41,6 +41,11 @@ public class Cliente extends Model {
 	  return cliente;
 	}
 	
+	public static Cliente update(Cliente cliente) {
+	  cliente.update();
+	  return cliente;
+	}
+	
 	public static void delete(Long id) {
 	  find.ref(id).delete();
 	}
