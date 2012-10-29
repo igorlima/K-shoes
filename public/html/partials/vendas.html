@@ -96,14 +96,29 @@
   </div>
   <div class="modal-body">
     <address>
-      <strong>{{venda_selecionada.nome}}</strong><br>
-      <strong>Fornecedor: </strong> {{venda_selecionada.fornecedor.nome}}<br>
-      <abbr title="Preço de Custo">Preço de Custo:</abbr> {{venda_selecionada.precoCusto}} <br>
-      <abbr title="Preço de Venda">Preço de Venda:</abbr> {{venda_selecionada.precoVenda}} <br>
-      <abbr title="Marca">Marca:</abbr> {{venda_selecionada.marca}} <br>
-      <abbr title="Quantiade">Quantidade:</abbr> {{venda_selecionada.quantidade}} <br>
-      <abbr title="Modelo">Modelo:</abbr> {{venda_selecionada.modelo}} <br>
+      <strong>{{venda_selecionada.cliente.nome}}</strong><br>
+      <strong>Forma de pagamento: </strong> {{venda_selecionada.formaPagamento}}<br>
+      <abbr title="Valor da compra">Valor da compra:</abbr> {{venda_selecionada.valor}} <br>
+      <abbr title="Data da compra">Data da compra:</abbr> {{venda_selecionada.dataVenda}} <br>
     </address>
+    <table class="table table-hover" ng-show="has_vendas">
+		  <thead>
+		    <tr>
+		      <th>#</th>
+		      <th>Produto</th>
+		      <th>Marca</th>
+		      <th>Modelo</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr ng-repeat="produto in venda_selecionada.produtos">
+		      <td>{{produto.id}}</td>
+		      <td>{{produto.nome}}</td>
+		      <td>{{produto.marca}}</td>
+		      <td>{{produto.modelo}}</td>
+		    </tr>
+		  </tbody>
+</table>
   </div>
   <div class="modal-footer">
     <a class="btn" data-dismiss="modal">Close</a>
