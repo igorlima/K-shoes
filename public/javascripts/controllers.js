@@ -2,7 +2,7 @@
 
 /* Controllers */
 
-angular.module( 'controllers', ['clienteModel', 'fornecedorModel', 'produtoModel'] )
+angular.module( 'controllers', ['clienteModel', 'fornecedorModel', 'produtoModel', 'vendaModel'] )
 
 .controller( 'ClienteCtrl', ['$scope', 'Cliente', 
 function(ng, Cliente) {
@@ -252,4 +252,118 @@ function(ng, Produto, Fornecedor) {
     });
   };
   
-}]);
+}])
+
+
+
+
+
+.controller( 'VendaCtrl', ['$scope','Venda','Produto','Cliente', 
+function(ng, Venda, Produto, Cliente) {
+  
+  ng.limpar = function() {
+    ng.venda = {};
+    ng.venda.cliente = {};
+    ng.venda.produtos = [];
+    return ng.venda;
+  };
+  
+  ng.venda    = ng.limpar();
+  ng.vendas   = [];
+  ng.produtos = [];
+  ng.clientes = [];
+  
+  Produto.all( function(data){ ng.produtos = data.returnObject; });
+  Cliente.all( function(data){ ng.clientes = data.returnObject; });
+  
+  var listar_todas_vendas = function() {
+    Venda.all(function(data){
+      ng.vendas = data.returnObject;
+      ng.has_vendas = ng.vendas.length > 0 ? true : false;
+    });
+  };
+  listar_todas_vendas();
+  
+  ng.salvar = function() {
+    Venda.save( {}, ng.venda, 
+      function(data){
+        if (data.status=='ERROR') Message.set(true, data.message);
+        else{
+          Message.set(false, data.message);
+          ng.limpar();
+          listar_todas_vendas();
+        }
+      },
+      function(data){
+        Message.set(true, data);
+    });
+  };
+  
+  ng.editar_venda_selecionada = function() {
+    Venda.update( {}, ng.venda, 
+      function(data){
+        if (data.status=='ERROR') Message.set(true, data.message);
+        else{
+          Message.set(false, data.message);
+          ng.limpar();
+          listar_todas_vendas();
+        }
+      },
+      function(data){
+        Message.set(true, data);
+    });
+  };
+  
+  ng.editar = function(venda) {
+    ng.venda.id              = venda.id;
+    ng.venda.cliente         = venda.cliente;
+    ng.venda.formaPagamento  = venda.formaPagamento;
+    ng.venda.produtos        = venda.produtos;
+    ng.venda.valor        = venda.valor;
+  };
+  
+  ng.selecionar = function(venda) {
+    ng.venda_selecionada = venda;
+    ng.limpar();
+  };
+  
+  ng.excluir = function(venda) {
+    Venda.remove( {id:venda.id},
+      function(data) {
+        if (data.status=='ERROR') Message.set(true, data.message);
+        else{
+          Message.set(false, data.message);
+          ng.limpar();
+          listar_todas_vendas();
+        }
+      },
+      function(data) {
+        Message.set(true, data);
+        ng.limpar();
+    });
+  };
+  
+  ng.adicionarProdutoAoCarrinho = function() {
+    ng.venda.produtos.push(ng.produto);
+    
+    var valorAtual = parseFloat(ng.venda.valor); 
+    valorAtual = isNaN(valorAtual) ? 0 : valorAtual; 
+    ng.venda.valor = valorAtual + parseFloat(ng.produto.precoVenda);
+    
+  };
+  
+  ng.removerProdutoDoCarrinho = function(produto) {
+    
+    ng.venda.produtos.splice(ng.venda.produtos.indexOf(produto),1);
+    var valorAtual = parseFloat(ng.venda.valor); 
+    valorAtual = isNaN(valorAtual) ? 0 : valorAtual; 
+    ng.venda.valor = valorAtual - parseFloat(produto.precoVenda);
+    
+  };
+  
+  
+  
+}])
+
+
+;

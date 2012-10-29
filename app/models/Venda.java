@@ -3,10 +3,12 @@ package models;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -23,8 +25,8 @@ public class Venda extends Model {
   private static final long serialVersionUID = 1L;
 
   @Id
-  @GeneratedValue
   @Expose
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   public Integer id;
   
   @Expose
@@ -39,8 +41,8 @@ public class Venda extends Model {
   public String formaPagamento;
   
   @Expose
-  @ManyToMany( fetch = FetchType.EAGER )
-  @JoinTable( name = "ProdutosVendas", joinColumns = { @JoinColumn( name = "idVenda", referencedColumnName = "ID" ) }, inverseJoinColumns = { @JoinColumn( name = "idProduto", referencedColumnName = "id" ) } )
+  @ManyToMany( fetch = FetchType.EAGER, cascade={CascadeType.PERSIST, CascadeType.MERGE} )
+  @JoinTable( name = "ProdutosVendas", joinColumns = { @JoinColumn( name = "idProduto", referencedColumnName = "id" ) }, inverseJoinColumns = { @JoinColumn( name = "idVenda", referencedColumnName = "id" ) } )
   public List<Produto> produtos;
   
   @Expose
@@ -67,6 +69,7 @@ public class Venda extends Model {
   }
   
   public static Venda create(Venda venda) {
+    venda.dataVenda = new Date();
     venda.save();
     return venda;
   }

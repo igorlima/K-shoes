@@ -1,0 +1,113 @@
+
+<legend>Vendas</legend>
+  
+<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label" for="inputCliente">Cliente</label>
+    <div class="controls">
+      <select ng-model="venda.cliente.id" ng-options="cliente.id as cliente.nome for cliente in clientes"></select>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputFormaPagamento">Forma de Pagamento</label>
+    <div class="controls">
+      <input type="text" placeholder="Forma de Pagamento" ng-model="venda.formaPagamento">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputValor">Valor</label>
+    <div class="controls">
+      <input type="text" placeholder="valor" ng-disabled="true" ng-model="venda.valor">
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputProduto">Produto</label>
+    <div class="controls">
+      <select ng-model="produto" ng-options="produto as produto.nome for produto in produtos"></select>
+      <a class="btn btn-inverse" ng-click="adicionarProdutoAoCarrinho()"> <i class="icon-chevron-down icon-white"></i></a>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="inputCarrinho">Carrinho</label>
+    <div class="controls">
+      <div class="alert" ng-hide="venda.produtos.length>0">
+        Nenhum item adicionado no carrinho.
+      </div>
+      <table class="table table-hover" ng-show="venda.produtos.length>0">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>preço</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="produto in venda.produtos">
+            <td>{{produto.nome}}</td>
+            <td>{{produto.precoVenda}}</td>
+            <td>
+              <a class="btn btn-mini btn-danger" ng-click="removerProdutoDoCarrinho(produto)"><i class="icon-trash icon-white"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <div class="control-group">
+    <div class="controls">
+      <a class="btn btn-inverse" ng-hide="venda.id" ng-click="salvar()"> <i class="icon-plus icon-white"></i> Salvar</a>
+      <a class="btn btn-inverse" ng-show="venda.id" ng-click="editar_venda_selecionada()"> <i class="icon-plus icon-white"></i> Editar</a>
+      <a class="btn" ng-click="limpar()"> <i class="icon-ban-circle"></i> Limpar</a>
+    </div>
+  </div>
+</form>
+
+<legend>Listagem das Vendas</legend>
+<div class="alert" ng-hide="has_vendas">
+  <strong>Atenção!</strong> Não foi encontrada nenhuma venda salva.
+</div>
+
+<table class="table table-hover" ng-show="has_vendas">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Cliente</th>
+      <th>valor</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="venda in vendas">
+      <td>{{venda.id}}</td>
+      <td>{{venda.cliente.nome}}</td>
+      <td>{{venda.valor}}</td>
+      <td>
+        <a class="btn btn-mini btn-primary" ng-click="editar(venda)"   rel="tooltip" title="editar"><i class="icon-edit icon-white"></i></a>
+        <a href="#visualizarVenda" class="btn btn-mini btn-info"  data-toggle="modal" rel="tooltip" title="visualizar" ng-click="selecionar(venda)"><i class="icon-search icon-white"></i></a>
+        <a class="btn btn-mini btn-danger"  ng-click="excluir(venda)"  rel="tooltip" title="excluir"><i class="icon-trash icon-white"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div id="visualizarVenda" class="modal hide fade">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+    <h3>Visualização</h3>
+  </div>
+  <div class="modal-body">
+    <address>
+      <strong>{{venda_selecionada.nome}}</strong><br>
+      <strong>Fornecedor: </strong> {{venda_selecionada.fornecedor.nome}}<br>
+      <abbr title="Preço de Custo">Preço de Custo:</abbr> {{venda_selecionada.precoCusto}} <br>
+      <abbr title="Preço de Venda">Preço de Venda:</abbr> {{venda_selecionada.precoVenda}} <br>
+      <abbr title="Marca">Marca:</abbr> {{venda_selecionada.marca}} <br>
+      <abbr title="Quantiade">Quantidade:</abbr> {{venda_selecionada.quantidade}} <br>
+      <abbr title="Modelo">Modelo:</abbr> {{venda_selecionada.modelo}} <br>
+    </address>
+  </div>
+  <div class="modal-footer">
+    <a class="btn" data-dismiss="modal">Close</a>
+  </div>
+</div>
