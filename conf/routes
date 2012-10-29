@@ -29,7 +29,6 @@ GET     /vendas                     controllers.VendaController.all()
 GET     /vendas/:id                 controllers.VendaController.findById(id: Long)
 DELETE  /vendas/:id                 controllers.VendaController.delete(id: Long)
 POST    /vendas                     controllers.VendaController.create()
-PUT     /vendas                     controllers.VendaController.update()
 
 
 # Map static resources from the /public folder to the /assets URL path

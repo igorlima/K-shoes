@@ -40,7 +40,6 @@ factory('Venda', ['$resource', function($resource) {
   return $resource('vendas/:id', {}, {
     all:     {method:'GET'   , params:{}},
     save:    {method:'POST'  , params:{}},
-    update:  {method:'PUT'   , params:{}},
     get:     {method:'GET'   , params:{id:'@id'}},
     remove:  {method:'DELETE', params:{id:'@id'}}
   });

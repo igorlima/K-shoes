@@ -56,8 +56,7 @@
   
   <div class="control-group">
     <div class="controls">
-      <a class="btn btn-inverse" ng-hide="venda.id" ng-click="salvar()"> <i class="icon-plus icon-white"></i> Salvar</a>
-      <a class="btn btn-inverse" ng-show="venda.id" ng-click="editar_venda_selecionada()"> <i class="icon-plus icon-white"></i> Editar</a>
+      <a class="btn btn-inverse" ng-click="salvar()"> <i class="icon-plus icon-white"></i> Salvar</a>
       <a class="btn" ng-click="limpar()"> <i class="icon-ban-circle"></i> Limpar</a>
     </div>
   </div>
@@ -83,7 +82,6 @@
       <td>{{venda.cliente.nome}}</td>
       <td>{{venda.valor}}</td>
       <td>
-        <a class="btn btn-mini btn-primary" ng-click="editar(venda)"   rel="tooltip" title="editar"><i class="icon-edit icon-white"></i></a>
         <a href="#visualizarVenda" class="btn btn-mini btn-info"  data-toggle="modal" rel="tooltip" title="visualizar" ng-click="selecionar(venda)"><i class="icon-search icon-white"></i></a>
         <a class="btn btn-mini btn-danger"  ng-click="excluir(venda)"  rel="tooltip" title="excluir"><i class="icon-trash icon-white"></i></a>
       </td>

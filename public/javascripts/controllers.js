@@ -299,29 +299,6 @@ function(ng, Venda, Produto, Cliente) {
     });
   };
   
-  ng.editar_venda_selecionada = function() {
-    Venda.update( {}, ng.venda, 
-      function(data){
-        if (data.status=='ERROR') Message.set(true, data.message);
-        else{
-          Message.set(false, data.message);
-          ng.limpar();
-          listar_todas_vendas();
-        }
-      },
-      function(data){
-        Message.set(true, data);
-    });
-  };
-  
-  ng.editar = function(venda) {
-    ng.venda.id              = venda.id;
-    ng.venda.cliente         = venda.cliente;
-    ng.venda.formaPagamento  = venda.formaPagamento;
-    ng.venda.produtos        = venda.produtos;
-    ng.venda.valor        = venda.valor;
-  };
-  
   ng.selecionar = function(venda) {
     ng.venda_selecionada = venda;
     ng.limpar();

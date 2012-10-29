@@ -21,7 +21,7 @@ public class Produto extends Model {
   @Id
   @GeneratedValue
   @Expose
-  public Integer id;
+  public Long id;
   
   @Expose
   @Column(name="precoCusto")
@@ -33,7 +33,7 @@ public class Produto extends Model {
   
   @Expose public String nome;
   @Expose public String marca;
-  @Expose public Integer quantidade;
+  @Expose public Long quantidade;
   @Expose public String modelo;
   
   @ManyToOne

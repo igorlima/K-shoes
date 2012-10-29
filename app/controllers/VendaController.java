@@ -29,15 +29,7 @@ public class VendaController extends Controller {
   
   public static Result create() {
     RequestBody body = request().body();
-    Venda.create( Deserializer.GSON.fromJson(body.asJson().toString(), Venda.class) );
-    ReturnTO returnTO = new MessageReturnTO();
-    return ok(Deserializer.GSON.toJson(returnTO));
-  }
-  
-  public static Result update() {
-    RequestBody body = request().body();
-    Venda.update( Deserializer.GSON.fromJson(body.asJson().toString(), Venda.class) );
-    ReturnTO returnTO = new MessageReturnTO();
+    ReturnTO returnTO = Venda.create( Deserializer.GSON.fromJson(body.asJson().toString(), Venda.class) );
     return ok(Deserializer.GSON.toJson(returnTO));
   }
   
