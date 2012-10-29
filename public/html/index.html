@@ -1,104 +1,128 @@
 <!DOCTYPE html>
 <html lang="pt-BR" ng-app="kshoes">
-  <head>
-    <meta charset="utf-8">
-    <title>Sistema de Gerenciamento de Sapatos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<head>
+  <meta charset="utf-8">
+  <title>Sistema de Gerenciamento de Sapatos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!-- Le styles -->
-    <link href="public/stylesheets/bootstrap.min.css" rel="stylesheet">
-    <link href="public/stylesheets/bootstrap-responsive.min.css" rel="stylesheet">
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-      .sidebar-nav {
-        padding: 9px 0;
-      }
-    </style>
+  <!-- Le styles -->
+  <link href="public/stylesheets/bootstrap.min.css" rel="stylesheet">
+  <link href="public/stylesheets/bootstrap-responsive.min.css" rel="stylesheet">
+  <style type="text/css">
+    body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+    }
+    .sidebar-nav {
+      padding: 9px 0;
+    }
+  </style>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="/public/images/foot.ico">
-  </head>
+  <!-- Le fav and touch icons -->
+  <link rel="shortcut icon" href="/public/images/foot.ico">
+</head>
 
-  <body>
+<body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">K-shoes</a>
-          <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              <a href="#" class="navbar-link"><i class="icon-user icon-white"></i> Cadu</a>
-            </p>
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">Sobre</a></li>
-              <li><a href="#contact">Créditos</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container-fluid">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">K-shoes</a>
+        <div class="nav-collapse collapse">
+          <p class="navbar-text pull-right">
+            <a href="#" class="navbar-link"><i class="icon-user icon-white"></i> Cadu</a>
+          </p>
+          <ul class="nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">Sobre</a></li>
+            <li><a href="#creditos" data-toggle="modal">Créditos</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
     </div>
+  </div>
 
-    <div class="alert alert-error" ng-hide="true">
-      ...
-    </div>
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Menu</li>
-              <li><a href="#/clientes"><i class="icon-user"></i>Cliente</a></li>
-              <li><a href="#/fornecedores"><i class="icon-briefcase"></i>Fornecedores</a></li>
-              <li><a href="#/produtos"><i class="icon-tags"></i>Produtos</a></li>
-              <li><a href="#/vendas"><i class="icon-fire"></i>Vendas</a></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
+  <div class="alert alert-error" ng-hide="true">
+    ...
+  </div>
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span3">
+        <div class="well sidebar-nav">
+          <ul class="nav nav-list">
+            <li class="nav-header">Menu</li>
+            <li><a href="#/clientes"><i class="icon-user"></i>Cliente</a></li>
+            <li><a href="#/fornecedores"><i class="icon-briefcase"></i>Fornecedores</a></li>
+            <li><a href="#/produtos"><i class="icon-tags"></i>Produtos</a></li>
+            <li><a href="#/vendas"><i class="icon-fire"></i>Vendas</a></li>
+          </ul>
+        </div><!--/.well -->
+      </div><!--/span-->
+      <div class="span9">
+      
+        <div ng-view></div>
         
-          <div ng-view></div>
-          
-        </div><!--/span-->
-      </div><!--/row-->
+      </div><!--/span-->
+    </div><!--/row-->
 
-      <hr>
+    <hr>
 
-      <footer>
-        <p>&copy; Copyright 2012</p>
-      </footer>
+    <footer>
+      <p>&copy; Copyright 2012</p>
+    </footer>
 
-    </div><!--/.fluid-container-->
+  </div><!--/.fluid-container-->
+  
+  <div id="creditos" class="modal hide fade">
+	  <div class="modal-header">
+	    <a class="close" data-dismiss="modal" aria-hidden="true">&times;</a>
+	    <h3>Créditos</h3>
+	  </div>
+	  <div class="modal-body">
+      <strong>Principais tecnologias que foram utilizadas:</strong><br>
+      <abbr title="Play framework"><a href="http://www.playframework.org/" target="_blanck">Play framework:</a></abbr> tecnologia utilizada como Server Side. <br>
+      <abbr title="Twitter bootstrap"><a href="http://twitter.github.com/bootstrap/index.html" target="_blanck">Twitter bootstrap:</a></abbr> biblioteca utilizada principalmente para estilizar os html's das páginas. <br>
+      <abbr title="AngularJS"><a href="http://angularjs.org/" target="_blanck">AngularJS:</a></abbr> biblioteca JS que possibilitou o MVC no FrontEnd. <br>
+      <br>
+      <strong>Outras tecnologias utilizadas:</strong><br>
+      <abbr title="JQuery"><a href="http://jquery.com/" target="_blanck">JQuery:</a></abbr> biblioteca JS para manipulação de DOM. <br>
+      <abbr title="Hibernate"><a href="http://www.hibernate.org/" target="_blanck">Hibernate:</a></abbr> ORM utilizado para abstração da camada de armazenamento de dados. <br>
+      <abbr title="MySQL Server"><a href="http://dev.mysql.com/" target="_blanck">MySQL Server:</a></abbr> Banco de dados utilizados para o armazenamento dos dados. <br>
+      <abbr title="Eclipse"><a href="http://www.eclipse.org/" target="_blanck">Eclipse:</a></abbr> IDE utilizada no desenvolvimento. <br>
+      <abbr title="GIT"><a href="http://git-scm.com/" target="_blanck">GIT:</a></abbr> Controle de versão utilizado para o versionamento do código. <br>
+      <abbr title="GSON"><a href="http://code.google.com/p/google-gson/" target="_blanck">GSON:</a></abbr> biblioteca da Google utilizada para a serialização e deserialização de objetos de dados. <br>
+	  </div>
+	  <div class="modal-footer">
+	    <a class="btn" data-dismiss="modal">Close</a>
+	  </div>
+	</div>
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="public/javascripts/jquery/jquery-1.8.2.min.js"></script>
-    <script src="public/javascripts/bootstrap/bootstrap.min.js"></script>
-    <script src="public/javascripts/angular/angular.min.js"></script>
-    <script src="public/javascripts/angular/angular-resource.min.js"></script>
-    <script src="public/javascripts/MessageStatus.js"></script>
-    <script src="public/javascripts/Message.js"></script>
-    <script src="public/javascripts/app.js"></script>
-    <script src="public/javascripts/services.js"></script>
-    <script src="public/javascripts/controllers.js"></script>
-    <script src="public/javascripts/filters.js"></script>
-    <script src="public/javascripts/directives.js"></script>
+  <!-- Le javascript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="public/javascripts/jquery/jquery-1.8.2.min.js"></script>
+  <script src="public/javascripts/bootstrap/bootstrap.min.js"></script>
+  <script src="public/javascripts/angular/angular.min.js"></script>
+  <script src="public/javascripts/angular/angular-resource.min.js"></script>
+  <script src="public/javascripts/MessageStatus.js"></script>
+  <script src="public/javascripts/Message.js"></script>
+  <script src="public/javascripts/app.js"></script>
+  <script src="public/javascripts/services.js"></script>
+  <script src="public/javascripts/controllers.js"></script>
+  <script src="public/javascripts/filters.js"></script>
+  <script src="public/javascripts/directives.js"></script>
 
-  </body>
+</body>
 </html>
