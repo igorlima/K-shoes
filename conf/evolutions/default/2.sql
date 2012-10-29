@@ -2,10 +2,10 @@
  
 # --- !Ups
  
-ALTER TABLE Produto
+ALTER TABLE produto
 ADD idFornecedor bigint(20);
  
 # --- !Downs
  
-ALTER TABLE Produto
+ALTER TABLE produto
 DROP COLUMN idFornecedor;

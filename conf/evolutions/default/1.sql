@@ -2,7 +2,7 @@
  
 # --- !Ups
  
-CREATE TABLE Produto (
+CREATE TABLE produto (
     id          bigint(20) NOT NULL AUTO_INCREMENT,
     nome        varchar(255) NOT NULL,
     marca       varchar(255) NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE Produto (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE Fornecedor (
+CREATE TABLE fornecedor (
     id          bigint(20) NOT NULL AUTO_INCREMENT,
     nome        varchar(255) NOT NULL,
     cnpj        int(255) NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE Fornecedor (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE Cliente (
+CREATE TABLE cliente (
     id          bigint(20) NOT NULL AUTO_INCREMENT,
     nome        varchar(255) NOT NULL,
     cpf         int(11) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE Cliente (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE Venda (
+CREATE TABLE venda (
     id             bigint(20) NOT NULL AUTO_INCREMENT,
     dataVenda      DATE NOT NULL,
     valor          decimal(10,2) NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE Venda (
     PRIMARY KEY (id)
 );
 
-CREATE TABLE ProdutosVendas (
+CREATE TABLE produtos_vendas (
     id             bigint(20) NOT NULL AUTO_INCREMENT,
     idVenda        int,
     idProduto      int,
@@ -50,8 +50,8 @@ CREATE TABLE ProdutosVendas (
  
 # --- !Downs
  
-DROP TABLE Produto;
-DROP TABLE Fornecedor;
-DROP TABLE Cliente;
-DROP TABLE Venda;
-DROP TABLE ProdutosVendas;
+DROP TABLE produto;
+DROP TABLE fornecedor;
+DROP TABLE cliente;
+DROP TABLE venda;
+DROP TABLE produtos_vendas;

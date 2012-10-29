@@ -49,7 +49,7 @@ public class Venda extends Model {
   
   @Expose
   @ManyToMany( fetch = FetchType.EAGER, cascade={CascadeType.PERSIST,CascadeType.MERGE} )
-  @JoinTable( name = "ProdutosVendas", joinColumns = { @JoinColumn( name = "idProduto", referencedColumnName = "id" ) }, inverseJoinColumns = { @JoinColumn( name = "idVenda", referencedColumnName = "id" ) } )
+  @JoinTable( name = "produtos_vendas", joinColumns = { @JoinColumn( name = "idProduto", referencedColumnName = "id" ) }, inverseJoinColumns = { @JoinColumn( name = "idVenda", referencedColumnName = "id" ) } )
   public List<Produto> produtos;
   
   @Expose
